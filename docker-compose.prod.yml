@@ -1,0 +1,22 @@
+version: "3"
+services:
+  hitsapp:
+    build: .
+    restart: always
+    env_file:
+      - ./.env
+    command: gunicorn --bind 0.0.0.0:8080 wsgi
+    volumes:
+      - .:/www
+    ports:
+      - "8080:8080"
+    depends_on:
+      - nginx
+  nginx:
+    image: "nginx"
+    restart: always
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+    

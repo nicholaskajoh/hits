@@ -11,4 +11,5 @@ Demo app for my video tutorial on load balancing an application. The app simply 
 - Provision a server
 - Install Git and clone this repo
 - Install Docker and Docker Compose
-- Run `docker-compose -f docker-compose.prod.yml up -d` in project root
+- Create *.env* from *.env.example* and make necessary changes
+- Run `docker-compose -f docker-compose.prod.yml up --build -d` in project root
