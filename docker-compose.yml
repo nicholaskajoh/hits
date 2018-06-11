@@ -1,0 +1,29 @@
+version: "3"
+services:
+  web:
+    build: .
+    restart: always
+    env_file:
+      - ./.env
+    command: flask run --host=0.0.0.0 --port=5000
+    volumes:
+      - .:/www
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+      - cache
+  db:
+    image: "postgres:10.3-alpine"
+    command: postgres -p 6000
+    ports:
+      - "6000:6000"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret123
+      POSTGRES_DB: hitsdb
+  cache:
+    image: "redis:4.0.9-alpine"
+    command: redis-server --port 7000
+    ports:
+      - "7000:7000"
